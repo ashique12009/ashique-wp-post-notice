@@ -17,3 +17,58 @@ if (!defined('WPINC')) {
     die;
 }
 
+final class WP_Ashique_Post_Notice {
+
+    const version = '1.0.0';
+
+    public function __construct()
+    {
+        $this->define_constants();
+
+        add_action('plugins_loaded', [$this, 'initialize_plugin']);
+    }
+
+    /**
+     * Define all necessary constants
+     */
+    public function define_constants()
+    {
+        define('ASHIQUE_WP_POST_NOTICE_VERSION', self::version);
+        define('ASHIQUE_WP_POST_NOTICE_FILE', __FILE__);
+        define('ASHIQUE_WP_POST_NOTICE_PATH', __DIR__);
+        define('ASHIQUE_WP_POST_NOTICE_URL', plugins_url('', ASHIQUE_WP_POST_NOTICE_FILE));
+        define('ASHIQUE_WP_POST_NOTICE_ASSETS', ASHIQUE_WP_POST_NOTICE_URL . '/assets');
+    }
+
+    /**
+     * Initializes necessary classes and functions
+     */
+    public function initialize_plugin()
+    {
+        if (is_admin()) {
+            require_once ASHIQUE_WP_POST_NOTICE_PATH . '/inc/Admin_Assets.php';
+            new Admin_Assets();
+        }
+        else {
+            require_once ASHIQUE_WP_POST_NOTICE_PATH . '/inc/Frontend_Assets.php';
+            new Frontend_Assets();
+        }
+    }
+
+    /**
+     * Initializes a singleton instance
+     */
+    public static function init()
+    {
+        static $instance = false;
+        if (!$instance) {
+            $instance = new self();
+        }
+
+        return $instance;
+    }
+
+}
+
+// Start plugin
+WP_Ashique_Post_Notice::init();
