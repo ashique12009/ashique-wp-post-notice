@@ -48,6 +48,8 @@ final class WP_Ashique_Post_Notice {
         if (is_admin()) {
             require_once ASHIQUE_WP_POST_NOTICE_PATH . '/inc/Admin_Assets.php';
             new Admin_Assets();
+            require_once ASHIQUE_WP_POST_NOTICE_PATH . '/inc/Post_Notice_Editor.php';
+            new Post_Notice_Editor();
         }
         else {
             require_once ASHIQUE_WP_POST_NOTICE_PATH . '/inc/Frontend_Assets.php';
