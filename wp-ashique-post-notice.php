@@ -54,6 +54,8 @@ final class WP_Ashique_Post_Notice {
         else {
             require_once ASHIQUE_WP_POST_NOTICE_PATH . '/inc/Frontend_Assets.php';
             new Frontend_Assets();
+            require_once ASHIQUE_WP_POST_NOTICE_PATH . '/inc/Post_Notice_Display.php';
+            new Post_Notice_Display();
         }
     }
 
