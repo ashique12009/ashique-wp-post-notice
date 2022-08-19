@@ -8,6 +8,11 @@ class Admin_Assets
 
     public function enqueue_styles()
     {
+        $screen = get_current_screen();
+        if ($screen->id != 'post') {
+            return;
+        }
+        
         wp_enqueue_style(
             'ashique-post-notice-style', 
             ASHIQUE_WP_POST_NOTICE_URL . '/assets/css/admin-style.css', 
